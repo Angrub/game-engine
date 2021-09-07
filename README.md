@@ -1,2 +1,2 @@
-# game-engine
-Simple javascript game engine
+# Game-engine
+Simple typescript game engine
