@@ -7,10 +7,13 @@ export type position2D = {x: positionX, y: positionY};
 export class Shape {
     private _position: Vector2D;
     private _size: Vector2D;
+    visible: boolean;
+    
     
     constructor(x: number, y: number, width: number, height: number) {
         this._position = new Vector2D(x, y);
         this._size = new Vector2D(width, height);
+        this.visible = false;
     }
 
     private center1D(xA: number, aristaA: number, xB: number, aristaB: number): number {
@@ -62,6 +65,13 @@ export class Shape {
             this.position.y = yA;
             this.size.y = hA;
         }       
+    }
+
+    drawShape(ctx: CanvasRenderingContext2D): void {
+        if(this.visible) {
+            ctx.fillStyle = 'blue'
+            ctx.fillRect(this._position.x, this._position.y, this._size.x, this._size.y);
+        }
     }
 
     get position(): Vector2D {

@@ -1,42 +1,36 @@
+import { LocalState } from '.'
 import { 
     Sprite, 
     DrawImageMethod, 
-    Input,
-    inputEvent, 
-    listener,
     Hitbox,
     Shape,
     position2D,
     Vector2D
 } from './utils'
 
+type components = 'entity' | 'sprite' | 'hitbox';
+
 abstract class Entity2D {
-    private _inputEvents: Input[];
-    private _behaviour: (()=> void)[];
+    
+    private _behaviour: ((localState: LocalState) => void)[];
     private _hitbox?: Hitbox;
     protected shape: Shape;
     protected sprite?: Sprite;
     collide: boolean;
-    entitiesThatCollided: Entity2D[]
 
     constructor(x: number, y: number, width: number, height: number) {
         // set shape
         this.shape = new Shape(x, y, width, height);
         
         // initialization
-        this._inputEvents = [];
+    
         this._behaviour = [];
-        this.entitiesThatCollided = [];
         this.collide = false;
 
     }
     
-    addBehaviour(cb: ()=> void): void{
+    addBehaviour(cb: (localState: LocalState) => void): void {
         this.behaviour.push(cb);
-    }
-    
-    inputEvent(event: inputEvent, cb: listener): void {
-        this.inputEvents.push(new Input(event, cb));
     }
     
     setHitbox(position: position2D, width: number, height: number): void {
@@ -51,8 +45,11 @@ abstract class Entity2D {
         this.sprite.loadImage(url);
     }
     
-    renderEntity(drawFunc: DrawImageMethod): void {
-        this.sprite?.render(drawFunc);
+    renderEntity(ctx: CanvasRenderingContext2D): void {
+        this.sprite?.render(ctx.drawImage.bind(ctx));
+        this.shape.drawShape(ctx);
+        this.sprite?.shape.drawShape(ctx);
+        this.hitbox?.shape.drawShape(ctx);
     }
     
     moveTo(x: number, y: number) {
@@ -61,11 +58,23 @@ abstract class Entity2D {
         this.hitbox?.shape.position.addVector(new Vector2D(x, y));
     }
 
-    get inputEvents(): Input[] {
-        return this._inputEvents;
+    switchVisibleShape(component: components): void {
+        switch(component) {
+            case 'entity':
+                this.shape.visible = !this.shape.visible;
+                break;
+            case 'hitbox':
+                if (this.hitbox)
+                this.hitbox.shape.visible = !this.hitbox?.shape.visible;
+                break;
+            case 'sprite':
+                if(this.sprite)
+                this.sprite.shape.visible = !this.sprite?.shape.visible;
+                break;
+        }
     }
 
-    get behaviour(): (()=> void)[] {
+    get behaviour(): ((localState: LocalState)=> void)[] {
         return this._behaviour;
     }
 

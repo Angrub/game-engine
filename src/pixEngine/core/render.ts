@@ -14,7 +14,7 @@ class Render {
     // render entities
     draw(currentScene: Scene): void {
         currentScene.entities.forEach(entity => {
-            entity.renderEntity(this.ctx.drawImage.bind(this.ctx));
+            entity.renderEntity(this.ctx);
         })
     } 
 

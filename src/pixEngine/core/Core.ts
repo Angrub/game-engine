@@ -1,4 +1,4 @@
-import ConfigCanvas from "./configCanvas";
+import { ConfigCanvas } from "..";
 import Scene from "../scene";
 import GameState from "./gameState";
 import Render from "./render";

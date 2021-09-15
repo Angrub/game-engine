@@ -9,8 +9,13 @@ class Scene {
         this._entities = []
     }
 
-    addEntity(entity: Entity2D): void {
-        this.entities.push(entity);
+    addEntity(entity: Entity2D | Entity2D[]): void {
+        if(Array.isArray(entity)) {
+            this._entities = this.entities.concat(entity);
+            
+        } else {
+            this.entities.push(entity);
+        }
     }
 
     get entities(): Entity2D[] {

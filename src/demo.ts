@@ -1,4 +1,4 @@
-import {Core, ConfigCanvas, Entity2D, Scene} from './pixEngine';
+import {Core, ConfigCanvas, Entity2D, Scene, LocalState} from './pixEngine';
 import s from './player.png';
 
 // Game class configuration
@@ -11,35 +11,28 @@ const config: ConfigCanvas = {
 
 // the player class extends from the entity abstract class 
 class Player extends Entity2D {
+    counter: number;
     constructor(posX: number, posY: number, width: number, height: number) {
         super(posX, posY, width, height);
-
+        
+        this.counter = 0;
         // move to
-        this.inputEvent('keydown', this.move)
-        this.addBehaviour(this.areCollided);
+        this.addBehaviour(this.move);
+        // this.addBehaviour(this.areCollided);
+
         
     }
 
-    move(ev: MouseEvent | KeyboardEvent): void {
-        const key = String.fromCharCode((<KeyboardEvent>ev).keyCode);
-        switch(key.toLowerCase()) {
-            case 'w':
-                this.moveTo(0, -10);
-                break;
-            case 's':
-                this.moveTo(0, 10);
-                break;
-            case 'a':
-                this.moveTo(-10, 0);
-                break;
-            case 'd':
-                this.moveTo(10, 0);
-                break;
-        }
+    move(state: LocalState): void {
+        if(state.keys.isDown('w')) this.moveTo(0, -5);
+        if(state.keys.isDown('s')) this.moveTo(0, 5);
+        if(state.keys.isDown('a')) this.moveTo(-5, 0);
+        if(state.keys.isDown('d')) this.moveTo(5, 0);
     }
-    areCollided(): void {
-        if(this.collide) {
-            console.log('collide')
+    areCollided(state: LocalState): void {
+        this.counter++;
+        if(this.counter % 50 === 0) {
+            console.log(this.collide)
         }
     }
 }
@@ -65,6 +58,7 @@ class Pong extends Entity2D {
 const player1 = new Player(100, 100, 100, 100);
 player1.setSprite(s, {x: 'center', y: 'center'}, 100, 100)
 player1.setHitbox({x: 'center', y: 'center'}, 60, 60);
+player1.switchVisibleShape('hitbox');
 
 // pong settings
 const pong = new Pong(250, 400, 20, 20, 5);
@@ -73,8 +67,7 @@ pong.setHitbox({x: 'center', y: 'center'}, 20, 20);
 
 // scene settings
 const mainScene = new Scene('main');
-mainScene.addEntity(player1);
-mainScene.addEntity(pong);
+mainScene.addEntity([player1, pong]);
 
 // game settings
 const videoGame = new Core(config);
