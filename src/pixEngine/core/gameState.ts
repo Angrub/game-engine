@@ -5,9 +5,11 @@ import { LocalState, CollisionState } from "../dataObjects";
 
 class GameState {
     private localState: LocalState;
+    private canvas: HTMLCanvasElement;
 
-    constructor() {
+    constructor(canvas: HTMLCanvasElement) {
         this.localState = new LocalState();
+        this.canvas = canvas;
     }
 
     // Add all listeners
@@ -18,6 +20,9 @@ class GameState {
         // add listeners
         document.addEventListener('keydown', event => this.localState.keys.onKeydown(event))
         document.addEventListener('keyup', event => this.localState.keys.onKeyup(event))
+        this.canvas.addEventListener('click', event => this.localState.mouse.onClick(event));
+        this.canvas.addEventListener('mousedown', event => this.localState.mouse.onMouseDown());
+        this.canvas.addEventListener('mouseup', event => this.localState.mouse.onMouseUp());
 
         // add entities with hitbox
         local.scene?.entities.forEach(entity => {
@@ -38,8 +43,9 @@ class GameState {
 
     // Update game state
     update(): void {
-        // Update collisions
+        // Update collisions & clicks
         this.checkCollisions();
+        this.checkClicks();
 
         // Update entities state
         this.localState.scene?.entities.forEach( entity => {
@@ -48,6 +54,9 @@ class GameState {
                 run(this.localState);
             })
         })
+
+        // clean old data
+        this.localState.mouse.resetData();
     }
 
     // validate collisions
@@ -83,6 +92,19 @@ class GameState {
                 entity1.collide = true;
             } else {
                 entity1.collide = false;
+            }
+        })
+    }
+
+    checkClicks(): void {
+        this.localState.entitiesWithHitbox.forEach(entity => {
+            const data = this.localState.mouse.isClick();
+            if(data instanceof Hitbox) {
+                if(entity.hitbox?.areColliding(data)) {
+                    entity.click = true;
+                } 
+            } else {
+                entity.click = false;
             }
         })
     }

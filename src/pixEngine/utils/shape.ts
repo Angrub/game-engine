@@ -7,13 +7,16 @@ export type position2D = {x: positionX, y: positionY};
 export class Shape {
     private _position: Vector2D;
     private _size: Vector2D;
+    private strokeColor: string;
+    private fillColor: string;
     visible: boolean;
-    
     
     constructor(x: number, y: number, width: number, height: number) {
         this._position = new Vector2D(x, y);
         this._size = new Vector2D(width, height);
         this.visible = false;
+        this.strokeColor = 'black';
+        this.fillColor = 'gray';
     }
 
     private center1D(xA: number, aristaA: number, xB: number, aristaB: number): number {
@@ -69,9 +72,16 @@ export class Shape {
 
     drawShape(ctx: CanvasRenderingContext2D): void {
         if(this.visible) {
-            ctx.fillStyle = 'blue'
+            ctx.fillStyle = this.fillColor;
+            ctx.strokeStyle = this.strokeColor;
             ctx.fillRect(this._position.x, this._position.y, this._size.x, this._size.y);
+            ctx.strokeRect(this._position.x, this._position.y, this._size.x, this._size.y);
         }
+    }
+
+    setColor(strokeColor: string, fillColor: string) {
+        this.strokeColor = strokeColor;
+        this.fillColor = fillColor;
     }
 
     get position(): Vector2D {

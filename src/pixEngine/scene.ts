@@ -10,11 +10,23 @@ class Scene {
     }
 
     addEntity(entity: Entity2D | Entity2D[]): void {
-        if(Array.isArray(entity)) {
-            this._entities = this.entities.concat(entity);
+        this.deepSearch(entity);
+    }
+
+    deepSearch(subject: any): void {
+        const isArray = Array.isArray(subject);
+        const isEntity = subject instanceof Entity2D;
+        let key: any;
+        
+        if(!isEntity && !isArray) {
+            return undefined;
+        } else if(isEntity) {
+            this._entities.push(subject);
+        }
+
+        for(key in subject) {
             
-        } else {
-            this.entities.push(entity);
+            this.deepSearch(subject[key]);
         }
     }
 

@@ -4,7 +4,7 @@ import GameState from "./gameState";
 import Render from "./render";
 
 class Core {
-    private root: HTMLElement;
+    private root: Element;
     private widthWindow: number;
     private heightWindow: number;
     private canvas: HTMLCanvasElement;
@@ -34,8 +34,8 @@ class Core {
         this.ctx = this.createCanvasRenderingContext();
         
         // dependencies
-        this.state = new GameState();
-        this.render = new Render(this.ctx, this.widthWindow, this.heightWindow)
+        this.state = new GameState(this.canvas);
+        this.render = new Render(this.ctx, this.widthWindow, this.heightWindow);
         
     }
     
@@ -79,8 +79,8 @@ class Core {
     }
     
     // add news scenes
-    addScene(scene: Scene): void {
-        this.scenes.push(scene);
+    addScene(nameScene: Scene): void {
+        this.scenes.push(nameScene);
     }
     
     on(sceneName: string): void {

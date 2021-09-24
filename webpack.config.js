@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './src/demo.ts',
+    entry: './src/demos/buscaminas/main.ts',
     devtool: 'inline-source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -11,6 +11,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.ts', '.js'],
+        alias: {
+            pixEngine: path.resolve(__dirname, 'src/pixEngine/')
+        }
     },
     module: {
         rules:[
