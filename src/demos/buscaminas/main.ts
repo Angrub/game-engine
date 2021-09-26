@@ -21,13 +21,13 @@ class Buscaminas extends Entity2D {
     gui: GUI;
     play: boolean;
 
-    constructor(x: number, y: number, width: number, height: number) {
+    constructor(x: number, y: number, width: number, height: number, mines: number) {
         super(x, y, width, height);
 
         this.play = true;
         // dependencies & initializing
         this.grid = new Grid(x, y +50, width, height -50);
-        this.grid.createGrid(10);
+        this.grid.createGrid(mines);
         this.gui = new GUI(this.grid.mines, x, y, width, 50);
         this.addBehaviour(this.update);
         this.addBehaviour(this.gameOver);
@@ -40,7 +40,14 @@ class Buscaminas extends Entity2D {
                 this.gui.timer.isRunning = true;
 
                 if(this.gui.switchButton.buttonState) {
-                    this.grid.mode2(cell);
+                    const subtractMine = this.grid.mode2(cell);
+                    
+                    if(subtractMine === true) {
+                        this.gui.mineCounter.subtract();
+                    } else if(subtractMine === false) {
+                        this.gui.mineCounter.add();
+                    }
+
                 } else {
                     this.grid.mode1(cell);
                 }
@@ -53,13 +60,15 @@ class Buscaminas extends Entity2D {
         if(!this.play) {
             this.grid.exposeMines();
             this.gui.timer.isRunning = false;
+            state.stop();
+            alert('gameover');
         }
     }
 }
 
 
 
-const buscaminas = new Buscaminas(0, 0, 500, 550);
+const buscaminas = new Buscaminas(0, 0, 500, 550, 7);
 
 const main = new Scene('Main');
 main.addEntity(buscaminas);

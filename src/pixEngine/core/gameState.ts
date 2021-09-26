@@ -42,7 +42,7 @@ class GameState {
     }
 
     // Update game state
-    update(): void {
+    update(): boolean {
         // Update collisions & clicks
         this.checkCollisions();
         this.checkClicks();
@@ -57,6 +57,9 @@ class GameState {
 
         // clean old data
         this.localState.mouse.resetData();
+
+        // stop?
+        return this.localState.play;
     }
 
     // validate collisions

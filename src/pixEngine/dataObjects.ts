@@ -30,6 +30,10 @@ export class LocalState {
         
         return (<CollisionState>record)
     }
+
+    stop(): void {
+        this.play = false;
+    }
 }
 
 export interface CollisionState {

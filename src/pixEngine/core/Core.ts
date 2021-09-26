@@ -13,6 +13,7 @@ class Core {
     private currentScene: Scene;
     private state: GameState;
     private render: Render;
+    play: boolean;
 
     constructor(config: ConfigCanvas) {
         // config canvas
@@ -21,6 +22,7 @@ class Core {
         this.heightWindow = config.heightWindow;
 
         // ----initialization----
+        this.play = false;
         this.scenes = [];
         this.currentScene = new Scene('default');
 
@@ -63,11 +65,13 @@ class Core {
     }
 
     private gameLoop(): void {
-        requestAnimationFrame(this.gameLoop.bind(this))
+        if(this.play) {
+            requestAnimationFrame(this.gameLoop.bind(this))
         
-        this.state.update();
-        this.render.clear();
-        this.render.draw(this.currentScene);
+            this.play = this.state.update();
+            this.render.clear();
+            this.render.draw(this.currentScene);
+        }
     }
     
     private getCurrentScene(sceneName: string): Scene {
@@ -84,6 +88,7 @@ class Core {
     }
     
     on(sceneName: string): void {
+        this.play = true;
         this.currentScene = this.getCurrentScene(sceneName);
         
         this.state.loadScene(this.currentScene);

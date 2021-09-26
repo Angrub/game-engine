@@ -97,6 +97,7 @@ class Grid extends Entity2D {
             this.clearNearbyCells(cell.nearbyMines, cell.column, cell.row);
         } else {
             cell.itsMark = !cell.itsMark;
+            return cell.itsMark;
         }
     }
 
