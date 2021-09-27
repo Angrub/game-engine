@@ -1,7 +1,7 @@
 import { Entity2D, LocalState } from "pixEngine";
 
 class Cell extends Entity2D {
-    static width: number = 20; 
+    static width: number = 30; 
     private _itsExposed?: boolean;
     private strokeColor: string;
     private cellColors: string[];

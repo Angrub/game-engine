@@ -14,7 +14,7 @@ class GUI extends Entity2D {
         let block = 20;
         this.timer = new Timer(block*5, y+5, block*3, hItems);
         this.switchButton = new Button('mine', 'flag', block*11, y+5, block*2, hItems );
-        this.mineCounter = new Counter(mines, block*19, y+5, block*3, hItems);
+        this.mineCounter = new Counter(mines, block*17.5, y+5, block*3, hItems);
     }
 }
 

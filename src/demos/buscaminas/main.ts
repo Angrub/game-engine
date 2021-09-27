@@ -10,8 +10,8 @@ if(root === null) {
 
 const config: ConfigCanvas = {
     root: root,
-    widthWindow: 500,
-    heightWindow: 550
+    widthWindow: 480,
+    heightWindow: 530
 }
 
 const game = new Core(config);
@@ -68,12 +68,10 @@ class Buscaminas extends Entity2D {
 
 
 
-const buscaminas = new Buscaminas(0, 0, 500, 550, 7);
+const buscaminas = new Buscaminas(0, 0, 480, 550, 7);
 
 const main = new Scene('Main');
 main.addEntity(buscaminas);
 
 game.addScene(main);
 game.on('Main');
-
-// game.on('Main');
