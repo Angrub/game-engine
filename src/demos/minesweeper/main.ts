@@ -16,7 +16,7 @@ const config: ConfigCanvas = {
 
 const game = new Core(config);
 
-class Buscaminas extends Entity2D {
+class Minesweeper extends Entity2D {
     grid: Grid;
     gui: GUI;
     play: boolean;
@@ -68,7 +68,7 @@ class Buscaminas extends Entity2D {
 
 
 
-const buscaminas = new Buscaminas(0, 0, 480, 550, 7);
+const buscaminas = new Minesweeper(0, 0, 480, 550, 7);
 
 const main = new Scene('Main');
 main.addEntity(buscaminas);
