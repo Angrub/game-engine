@@ -1,17 +1,25 @@
 {
-  "name": "game-engine",
+  "name": "@angrub/pix-engine",
   "version": "1.0.0",
   "description": "A simple game engine with typescript",
-  "main": "src/pixEngine/index.ts",
+  "main": "lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "webpack",
-    "start": "webpack serve"
+    "start": "webpack serve",
+    "publish:pix-engine": "tsc --project src/pixEngine/ && npm publish"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Angrub/game-engine.git"
   },
-  "keywords": [],
+  "keywords": [
+    "typescript",
+    "html-canvas-api",
+    "game-engine"
+  ],
   "author": "Angel M Rubio <angrub1810@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -25,8 +33,5 @@
     "webpack": "^5.50.0",
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^4.0.0"
-  },
-  "workspaces": [
-    "src/pixEngine"
-  ]
+  }
 }

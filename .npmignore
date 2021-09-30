@@ -1,0 +1,7 @@
+dist
+node_modules
+src
+custom.d.ts
+package-lock.json
+tsconfig.json
+webpack.config.js
