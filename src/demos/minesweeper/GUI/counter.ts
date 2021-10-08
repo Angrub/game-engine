@@ -1,4 +1,4 @@
-import { Entity2D } from "pixEngine";
+import { Entity2D } from "@angrub/pix-engine";
 import Display from "./display";
 
 class Counter extends Entity2D {

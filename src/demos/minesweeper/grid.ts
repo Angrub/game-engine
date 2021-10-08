@@ -1,5 +1,5 @@
 import Cell from "./cell";
-import { Entity2D, LocalState } from "pixEngine";
+import { Entity2D, LocalState } from "@angrub/pix-engine";
 
 class Grid extends Entity2D {
     columns: number;

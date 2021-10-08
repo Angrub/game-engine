@@ -92,9 +92,7 @@ class Core {
         this.currentScene = this.getCurrentScene(sceneName);
         
         this.state.loadScene(this.currentScene);
-        window.onload = () => {
-            this.gameLoop();
-        }
+        this.gameLoop();
     }
 }
 

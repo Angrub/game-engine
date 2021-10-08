@@ -1,4 +1,4 @@
-import { Entity2D, LocalState } from "pixEngine";
+import { Entity2D, LocalState } from "@angrub/pix-engine";
 
 class Cell extends Entity2D {
     static width: number = 30; 

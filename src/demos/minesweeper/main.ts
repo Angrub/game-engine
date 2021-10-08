@@ -1,4 +1,4 @@
-import {Core, ConfigCanvas, Scene, Entity2D, LocalState } from 'pixEngine';
+import {Core, ConfigCanvas, Scene, Entity2D, LocalState } from '@angrub/pix-engine';
 import Grid from './grid';
 import GUI from './GUI/GUI';
 

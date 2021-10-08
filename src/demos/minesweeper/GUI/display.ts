@@ -1,4 +1,4 @@
-import { Entity2D } from "pixEngine";
+import { Entity2D } from "@angrub/pix-engine";
 
 class Display extends Entity2D {
     private _value: number;

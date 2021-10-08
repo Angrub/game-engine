@@ -1,4 +1,4 @@
-import { Entity2D, LocalState } from "pixEngine";
+import { Entity2D, LocalState } from "@angrub/pix-engine";
 import Display from "./display";
 
 class Timer extends Entity2D {

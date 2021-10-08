@@ -1,4 +1,4 @@
-import { Entity2D } from "pixEngine";
+import { Entity2D } from "@angrub/pix-engine";
 import Button from "./button";
 import Timer from "./timer";
 import Counter from "./counter";

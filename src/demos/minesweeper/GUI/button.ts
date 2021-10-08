@@ -1,5 +1,5 @@
-import { Entity2D, LocalState } from "pixEngine";
-import { Hitbox } from "../../../pixEngine/utils";
+import { Entity2D, LocalState } from "@angrub/pix-engine";
+import { Hitbox } from "@angrub/pix-engine/lib/utils";
 
 class Button extends Entity2D {
     value1: string;
